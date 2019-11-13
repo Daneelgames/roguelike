@@ -51,11 +51,12 @@ public class GameManager : MonoBehaviour
         {
             case GameEvent.GameReady:
                 playerInput.playersTurn = true;
-                Invoke("AutoPassTurn", 1);
+                //Invoke("AutoPassTurn", 0.5f);
+                musicGeneratorSystem.Step();
                 break;
 
             case GameEvent.PlayerAct:
-                CancelInvoke("AutoPassTurn");
+                //CancelInvoke("AutoPassTurn");
                 attackSystem.TurnOffTelegraphTurns();
                 playerInput.playersTurn = false;
                 // npcs that move are first
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour
 
             case GameEvent.NpcAct:
                 playerInput.playersTurn = true;
-                Invoke("AutoPassTurn", 1);
+                //Invoke("AutoPassTurn", 0.5f);
                 break;
         }
     }

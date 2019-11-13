@@ -24,10 +24,6 @@ public class HealthSystem : MonoBehaviour
                 hearts[damaged.health].SetTrigger("Damaged");
             }
         }
-        if (attacker == gm.player)
-        {
-            damaged.health -= 2;
-        }
 
         if (damaged.health <= 0)
         {

@@ -167,6 +167,8 @@ MonoBehaviour:
   shotCooldownCurrent: 3
   weaponEntity: {fileID: 1882502294431310215}
   moveCooldown: 0
+  savedPosition: {x: 0, y: 0, z: 0}
+  projectileToFire: {fileID: 0}
   attackTarget: {fileID: 0}
 --- !u!114 &1882502294431310215
 MonoBehaviour:

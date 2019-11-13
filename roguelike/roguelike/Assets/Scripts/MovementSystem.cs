@@ -47,6 +47,7 @@ public class MovementSystem : MonoBehaviour
 
             gm.attackSystem.PlayerMoved(targetObject);
 
+            yield return new WaitForSeconds(0.1f);
             gm.Step(GameManager.GameEvent.PlayerAct);
         }
         else if (targetObject.layer == 9) // wall
@@ -58,6 +59,7 @@ public class MovementSystem : MonoBehaviour
         {
             gm.CancelInvoke();
             gm.attackSystem.PlayerMoved(targetObject);
+            yield return new WaitForSeconds(0.1f);
             gm.Step(GameManager.GameEvent.PlayerAct);
         }
     }

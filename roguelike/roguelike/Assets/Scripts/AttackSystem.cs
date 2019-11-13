@@ -40,13 +40,15 @@ public class AttackSystem : MonoBehaviour
                 {
                     if (gm.entityList.npcEntities[i].gameObject == targetObject)
                     {
-                        gm.healthSystem.DamageEntity(gm.entityList.npcEntities[i].health, gm.player);
-                        gm.entityList.npcEntities[i].health.health -= 3;
+                        //gm.entityList.npcEntities[i].health.health -= 1;
                         if (gm.entityList.npcEntities[i].projectileToFire != null)
                         {
                             DestroyProjectile(gm.entityList.npcEntities[i].projectileToFire);
                             gm.entityList.npcEntities[i].projectileToFire = null;
                         }
+                        gm.healthSystem.DamageEntity(gm.entityList.npcEntities[i].health, gm.player);
+                        print("damaged");
+                        break;
                     }
                 }
                 break;
@@ -67,20 +69,16 @@ public class AttackSystem : MonoBehaviour
             }
             else
             {
-                print("0");
                 var he = npc.health;
                 // enemies attack
                 if (he.npc && he.npc.weaponEntity)
                 {
-                    print("1");
                     he.npc.attackTarget = gm.player;
 
                     if (he.npc.weaponEntity.aimType == WeaponEntity.AimType.Cross)
                     {
-                        print("2");
                         if (Mathf.Round(he.transform.position.x) == Mathf.Round(gm.player.transform.position.x) || Mathf.Round(he.transform.position.z) == Mathf.Round(gm.player.transform.position.z))
                         {
-                            print("3");
                             ProjectileEntity projectile = Instantiate(he.npc.weaponEntity.projectile, he.transform.position, Quaternion.identity);
                             projectile.master = he;
 

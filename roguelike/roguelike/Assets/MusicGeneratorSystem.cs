@@ -5,24 +5,40 @@ using UnityEngine;
 public class MusicGeneratorSystem : MonoBehaviour
 {
     GameManager gm;
-    AudioSource au;
+    public AudioSource auHat;
+    public AudioSource auSnare;
+    public AudioSource auKick;
 
-    public AudioClip kickDrum;
-    public AudioClip snareDrum;
-
+    float hiHatDynamicCooldown = 0.5f;
+    int barState = 0;
 
     public void Init()
     {
         gm = GameManager.instance;
-        au = GetComponent<AudioSource>();
-        au.clip = kickDrum;
     }
 
     public void Step()
     {
-        if (au.clip == kickDrum) au.clip = snareDrum;
-        else if (au.clip == snareDrum) au.clip = kickDrum;
-
-        au.Play();
+        switch (barState)
+        {
+            case 0:
+                auHat.Play();
+                auKick.Play();
+                barState++;
+                break;
+            case 1:
+                auHat.Play();
+                barState++;
+                break;
+            case 2:
+                auHat.Play();
+                auSnare.Play();
+                barState++;
+                break;
+            case 3:
+                auHat.Play();
+                barState = 0;
+                break;
+        }
     }
 }
