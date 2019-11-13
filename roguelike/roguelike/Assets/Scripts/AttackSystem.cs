@@ -36,16 +36,16 @@ public class AttackSystem : MonoBehaviour
             case 10: // unit
                 gm.movementSystem.anim.SetTrigger("Attack");
 
-                foreach (NpcEntity npc in gm.entityList.npcEntities)
+                for (int i = gm.entityList.npcEntities.Count - 1; i >=0; i--)
                 {
-                    if (npc.gameObject == targetObject)
+                    if (gm.entityList.npcEntities[i].gameObject == targetObject)
                     {
-                        gm.healthSystem.DamageEntity(npc.health, gm.player);
-                        npc.health.health -= 3;
-                        if (npc.projectileToFire != null)
+                        gm.healthSystem.DamageEntity(gm.entityList.npcEntities[i].health, gm.player);
+                        gm.entityList.npcEntities[i].health.health -= 3;
+                        if (gm.entityList.npcEntities[i].projectileToFire != null)
                         {
-                            DestroyProjectile(npc.projectileToFire);
-                            npc.projectileToFire = null;
+                            DestroyProjectile(gm.entityList.npcEntities[i].projectileToFire);
+                            gm.entityList.npcEntities[i].projectileToFire = null;
                         }
                     }
                 }
@@ -67,17 +67,20 @@ public class AttackSystem : MonoBehaviour
             }
             else
             {
+                print("0");
                 var he = npc.health;
-
                 // enemies attack
                 if (he.npc && he.npc.weaponEntity)
                 {
+                    print("1");
                     he.npc.attackTarget = gm.player;
 
                     if (he.npc.weaponEntity.aimType == WeaponEntity.AimType.Cross)
                     {
-                        if (he.transform.position.x == gm.player.transform.position.x || he.transform.position.z == gm.player.transform.position.z)
+                        print("2");
+                        if (Mathf.Round(he.transform.position.x) == Mathf.Round(gm.player.transform.position.x) || Mathf.Round(he.transform.position.z) == Mathf.Round(gm.player.transform.position.z))
                         {
+                            print("3");
                             ProjectileEntity projectile = Instantiate(he.npc.weaponEntity.projectile, he.transform.position, Quaternion.identity);
                             projectile.master = he;
 
@@ -114,7 +117,6 @@ public class AttackSystem : MonoBehaviour
 
     void CheckDamage() 
     {
-        Debug.Log("check damage");
         if (projectiles.Count > 0)
         { 
             for (int i = projectiles.Count - 1; i >= 0; i--)

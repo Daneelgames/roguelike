@@ -49,7 +49,7 @@ public class PlayerInput : MonoBehaviour
 
         if (movementCooldown <= 0)
         {
-            if (Input.GetAxisRaw("Vertical") > 0)
+            if (SimpleInput.GetAxisRaw("Vertical") > 0)
             {
                 StopCoroutine(gm.movementSystem.Move(Vector3.zero, false));
                 StartCoroutine(gm.movementSystem.Move(new Vector3(0, 0, 1), false));
@@ -57,9 +57,8 @@ public class PlayerInput : MonoBehaviour
                     gameSpeed += Time.deltaTime * 10;
                 if (timeScaleSmooth < 0.75)
                     timeScaleSmooth += Time.deltaTime * 5;
-
             }
-            else if (Input.GetAxisRaw("Horizontal") > 0)
+            else if (SimpleInput.GetAxisRaw("Horizontal") > 0)
             {
                 StopCoroutine(gm.movementSystem.Move(Vector3.zero, false));
                 StartCoroutine(gm.movementSystem.Move(new Vector3(1, 0, 0), false));
@@ -67,7 +66,7 @@ public class PlayerInput : MonoBehaviour
                 if (timeScaleSmooth < 0.75)
                     timeScaleSmooth += Time.deltaTime * 5;
             }
-            else if (Input.GetAxisRaw("Vertical") < 0)
+            else if (SimpleInput.GetAxisRaw("Vertical") < 0)
             {
                 StopCoroutine(gm.movementSystem.Move(Vector3.zero, false));
                 StartCoroutine(gm.movementSystem.Move(new Vector3(0, 0, -1), false));
@@ -75,7 +74,7 @@ public class PlayerInput : MonoBehaviour
                 if (timeScaleSmooth < 0.75)
                     timeScaleSmooth += Time.deltaTime * 5;
             }
-            else if (Input.GetAxisRaw("Horizontal") < 0)
+            else if (SimpleInput.GetAxisRaw("Horizontal") < 0)
             {
                 StopCoroutine(gm.movementSystem.Move(Vector3.zero, false));
                 StartCoroutine(gm.movementSystem.Move(new Vector3(-1, 0, 0), false));
@@ -84,7 +83,7 @@ public class PlayerInput : MonoBehaviour
                     timeScaleSmooth += Time.deltaTime * 5;
             }
 
-            if ((Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0))
+            if (SimpleInput.GetAxisRaw("Horizontal") == 0 && SimpleInput.GetAxisRaw("Vertical") == 0)
             {
                 gameSpeed = 1;
                 timeScaleSmooth = 0.1f;
@@ -92,7 +91,6 @@ public class PlayerInput : MonoBehaviour
                     timeScaleSmooth += Time.deltaTime * 5;
             }
             Time.timeScale = Mathf.Lerp(Time.timeScale, gameSpeed,timeScaleSmooth);
-            print(Time.timeScale);
         }
     }
 }

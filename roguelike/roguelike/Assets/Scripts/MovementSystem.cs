@@ -34,7 +34,6 @@ public class MovementSystem : MonoBehaviour
 
             gm.player.transform.position = currentPosition;
             gm.player.transform.LookAt(newPos);
-            print(targetObject.name);
             anim.SetTrigger("Move");
 
             for (int t = 0; t < 3; t++)
@@ -43,6 +42,7 @@ public class MovementSystem : MonoBehaviour
                 yield return new WaitForSeconds(0.01f);
             }
             gm.player.transform.position = newPos;
+            gm.player.transform.position = new Vector3(Mathf.Round(gm.player.transform.position.x), Mathf.Round(gm.player.transform.position.y), Mathf.Round(gm.player.transform.position.z));
             currentPosition = gm.player.transform.position;
 
             gm.attackSystem.PlayerMoved(targetObject);
