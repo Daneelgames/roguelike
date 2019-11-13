@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public MovementSystem movementSystem;
     [HideInInspector] public AttackSystem attackSystem;
     [HideInInspector] public HealthSystem healthSystem;
+    [HideInInspector] public MusicGeneratorSystem musicGeneratorSystem;
     public HealthEntity player;
 
     [HideInInspector] public EntityList entityList;
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
         movementSystem = GetComponent<MovementSystem>();
         attackSystem = GetComponent<AttackSystem>();
         healthSystem = GetComponent<HealthSystem>();
+        musicGeneratorSystem = GetComponentInChildren<MusicGeneratorSystem>();
         Init();
     }
 
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
         movementSystem.Init();
         attackSystem.Init();
         healthSystem.Init();
+        musicGeneratorSystem.Init();
 
         Step(GameEvent.GameReady);
     }
@@ -48,15 +51,16 @@ public class GameManager : MonoBehaviour
         {
             case GameEvent.GameReady:
                 playerInput.playersTurn = true;
-                //Invoke("AutoPassTurn", 1);
+                Invoke("AutoPassTurn", 1);
                 break;
 
             case GameEvent.PlayerAct:
-                //CancelInvoke("AutoPassTurn");
+                CancelInvoke("AutoPassTurn");
                 attackSystem.TurnOffTelegraphTurns();
                 playerInput.playersTurn = false;
                 // npcs that move are first
                 StartCoroutine(attackSystem.MoveProjectiles());
+                musicGeneratorSystem.Step();
                 break;
 
             case GameEvent.ProjectilesMove:
@@ -70,7 +74,7 @@ public class GameManager : MonoBehaviour
 
             case GameEvent.NpcAct:
                 playerInput.playersTurn = true;
-                //Invoke("AutoPassTurn", 1);
+                Invoke("AutoPassTurn", 1);
                 break;
         }
     }

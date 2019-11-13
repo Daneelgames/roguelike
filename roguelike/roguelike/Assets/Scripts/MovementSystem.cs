@@ -54,7 +54,7 @@ public class MovementSystem : MonoBehaviour
             gm.CancelInvoke();
             // Move into wall
         }
-        else if (CanMove(newPos).layer == 10) // move into other unit
+        else if (targetObject.layer == 10) // move into other unit
         {
             gm.CancelInvoke();
             gm.attackSystem.PlayerMoved(targetObject);
@@ -66,7 +66,10 @@ public class MovementSystem : MonoBehaviour
     {
         RaycastHit hit;
         Physics.Raycast(targetPos + Vector3.up * 5f, Vector3.down, out hit, 10, movementMask);
-        return hit.collider.gameObject;   
+        if (hit.collider != null)
+            return hit.collider.gameObject;
+        else
+            return null;
     }
 
     public IEnumerator NpcMove()
@@ -78,8 +81,9 @@ public class MovementSystem : MonoBehaviour
             else
             {
                 Vector3 newPos = npc.transform.position + RandomDirection();
+                GameObject targetObj = CanMove(newPos);
 
-                if (CanMove(newPos).layer == 8)
+                if (targetObj!= null && targetObj.layer == 8)
                 {
                     SavePosition(npc);
                     npc.transform.LookAt(newPos);

@@ -262,18 +262,25 @@ public class AttackSystem : MonoBehaviour
 
         for (int t = 0; t < 8; t++)
         {
-            proj.transform.position = Vector3.Lerp(proj.transform.position, newPos, 0.2f);
-            yield return new WaitForSeconds(0.01f);
+            if (proj != null)
+            {
+                proj.transform.position = Vector3.Lerp(proj.transform.position, newPos, 0.2f);
+                yield return new WaitForSeconds(0.01f);
+            }
+            else break;
         }
 
-        proj.transform.position = proj.newPos;
-
-        if (!proj.wallOnWay)
-            proj.deathPosition = proj.newPos;
-
-        if (proj.stepsLast <= 0 || proj.damagedObject)
+        if (proj != null)
         {
-            DestroyProjectile(proj);
+            proj.transform.position = proj.newPos;
+
+            if (!proj.wallOnWay)
+                proj.deathPosition = proj.newPos;
+
+            if (proj.stepsLast <= 0 || proj.damagedObject)
+            {
+                DestroyProjectile(proj);
+            }
         }
     }
 

@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\GameManager.cs" />
+    <Compile Include="Assets\MusicGeneratorSystem.cs" />
     <Compile Include="Assets\Scripts\AttackSystem.cs" />
     <Compile Include="Assets\Scripts\Entities\HealthEntity.cs" />
     <Compile Include="Assets\Scripts\Entities\NpcEntity.cs" />
