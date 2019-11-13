@@ -22,7 +22,7 @@ public class MusicGeneratorSystem : MonoBehaviour
         switch (barState)
         {
             case 0:
-                auHat.Play();
+                //auHat.Play();
                 auKick.Play();
                 barState++;
                 break;
@@ -31,7 +31,7 @@ public class MusicGeneratorSystem : MonoBehaviour
                 barState++;
                 break;
             case 2:
-                auHat.Play();
+                //auHat.Play();
                 auSnare.Play();
                 barState++;
                 break;

@@ -47,7 +47,6 @@ public class AttackSystem : MonoBehaviour
                             gm.entityList.npcEntities[i].projectileToFire = null;
                         }
                         gm.healthSystem.DamageEntity(gm.entityList.npcEntities[i].health, gm.player);
-                        print("damaged");
                         break;
                     }
                 }
@@ -181,8 +180,10 @@ public class AttackSystem : MonoBehaviour
         {
             if (wallOnWay > i)
             {
-                proj.dangerousSprites[i].gameObject.SetActive(false);
-                proj.dangerousSprites[i].transform.position = proj.newPos + proj.direction * i;
+                Animator anim = proj.dangerousSprites[i];
+                anim.gameObject.SetActive(false);
+                anim.transform.position = proj.newPos + proj.direction * i;
+                anim.transform.LookAt(anim.transform.position + proj.direction);
 
                 RaycastHit hit;
 
