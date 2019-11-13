@@ -69,6 +69,7 @@ public class AttackSystem : MonoBehaviour
             }
             else
             {
+                gm.movementSystem.SavePosition(npc);
                 var he = npc.health;
                 // enemies attack
                 if (he.npc && he.npc.weaponEntity)
@@ -244,10 +245,12 @@ public class AttackSystem : MonoBehaviour
         {
             DangerousTilesSetDanger(false, proj);
 
+            /*
             if (proj.stepsLast > 0 && !proj.damagedObject)
             {
                 StartCoroutine(CalculateDangerousTiles(proj));
             }
+            */
         }
         gm.Step(GameManager.GameEvent.ProjectilesMove);
     }
@@ -279,6 +282,8 @@ public class AttackSystem : MonoBehaviour
             {
                 DestroyProjectile(proj);
             }
+            else
+                StartCoroutine(CalculateDangerousTiles(proj));
         }
     }
 

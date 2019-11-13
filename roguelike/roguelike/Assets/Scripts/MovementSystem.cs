@@ -78,19 +78,23 @@ public class MovementSystem : MonoBehaviour
     {
         foreach (NpcEntity npc in gm.entityList.npcEntities)
         {
-            if (npc.moveCooldown > 0)
-                npc.moveCooldown--;
-            else
+            SavePosition(npc);
+            if (npc.canMove)
             {
-                Vector3 newPos = npc.transform.position + RandomDirection();
-                GameObject targetObj = CanMove(newPos);
-
-                if (targetObj!= null && targetObj.layer == 8)
+                if (npc.moveCooldown > 0)
+                    npc.moveCooldown--;
+                else
                 {
-                    SavePosition(npc);
-                    npc.transform.LookAt(newPos);
-                    npc.health.anim.SetTrigger("Move");
-                    StartCoroutine(NpcMoveSmooth(npc, newPos));
+                    Vector3 newPos = npc.transform.position + RandomDirection();
+                    GameObject targetObj = CanMove(newPos);
+
+                    if (targetObj != null && targetObj.layer == 8)
+                    {
+                        SavePosition(npc);
+                        npc.transform.LookAt(newPos);
+                        npc.health.anim.SetTrigger("Move");
+                        StartCoroutine(NpcMoveSmooth(npc, newPos));
+                    }
                 }
             }
         }
@@ -112,7 +116,7 @@ public class MovementSystem : MonoBehaviour
         SavePosition(npc);
     }
 
-    void SavePosition(NpcEntity npc)
+    public void SavePosition(NpcEntity npc)
     {
         npc.savedPosition = npc.transform.position;
         npc.savedPosition = new Vector3(Mathf.Round(npc.savedPosition.x), Mathf.Round(npc.savedPosition.y), Mathf.Round(npc.savedPosition.z));

@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 0}
+  canMove: 1
   viewRange: 5
   shotCooldownMax: 3
   shotCooldownCurrent: 3
