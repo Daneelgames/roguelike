@@ -66,14 +66,14 @@ public class GameManager : MonoBehaviour
 
             case GameEvent.ProjectilesMove:
                 //attacking are second
+                StartCoroutine(attackSystem.NpcAttack());
+                break;
+
+            case GameEvent.NpcAct:
                 StartCoroutine(movementSystem.NpcMove());
                 break;
 
             case GameEvent.NpcMove:
-                attackSystem.NpcAttack();
-                break;
-
-            case GameEvent.NpcAct:
                 playerInput.playersTurn = true;
                 //Invoke("AutoPassTurn", 0.5f);
                 break;

@@ -54,7 +54,7 @@ public class AttackSystem : MonoBehaviour
         }
     }
 
-    public void NpcAttack() // NPC
+    public IEnumerator NpcAttack() // NPC
     {
         foreach(NpcEntity npc in gm.entityList.npcEntities)
         {
@@ -109,7 +109,8 @@ public class AttackSystem : MonoBehaviour
                 }
             }
         }
-        
+
+        yield return null;
         gm.Step(GameManager.GameEvent.NpcAct);
     }
 
@@ -219,7 +220,6 @@ public class AttackSystem : MonoBehaviour
 
     public IEnumerator MoveProjectiles()
     {
-        //CheckDamage();
         for (int i = projectiles.Count - 1; i >= 0; i--)
         {
             if (!projectiles[i].telegraphTurn)
@@ -246,13 +246,13 @@ public class AttackSystem : MonoBehaviour
         {
             DangerousTilesSetDanger(false, proj);
 
-            /*
+            // here
             if (proj.stepsLast > 0 && !proj.damagedObject)
             {
                 StartCoroutine(CalculateDangerousTiles(proj));
             }
-            */
         }
+        yield return new WaitForSeconds(0.1f);
         gm.Step(GameManager.GameEvent.ProjectilesMove);
     }
 
@@ -278,13 +278,12 @@ public class AttackSystem : MonoBehaviour
 
             if (!proj.wallOnWay)
                 proj.deathPosition = proj.newPos;
-
             if (proj.stepsLast <= 0 || proj.damagedObject)
             {
                 DestroyProjectile(proj);
             }
-            else
-                StartCoroutine(CalculateDangerousTiles(proj));
+            //else
+            //    StartCoroutine(CalculateDangerousTiles(proj));
         }
     }
 

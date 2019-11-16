@@ -79,7 +79,7 @@ public class MovementSystem : MonoBehaviour
         foreach (NpcEntity npc in gm.entityList.npcEntities)
         {
             SavePosition(npc);
-            if (npc.canMove)
+            if (npc.canMove && npc.projectileToFire == null)
             {
                 if (npc.moveCooldown > 0)
                     npc.moveCooldown--;
@@ -99,7 +99,7 @@ public class MovementSystem : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(0.1f);
+        yield return null;
 
         gm.Step(GameManager.GameEvent.NpcMove);
     }
